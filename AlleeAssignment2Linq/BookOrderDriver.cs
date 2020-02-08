@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace AlleeAssignment2Linq
 {
@@ -47,11 +48,11 @@ namespace AlleeAssignment2Linq
 
             // making 5 orders and adding them to order list
             List<Order> orderList = new List<Order>();
-            Order order1 = new Order(1,100,"Debit");
-            Order order2 = new Order(1,104,"Cash");
-            Order order3 = new Order(3,105,"Credit");
-            Order order4 = new Order(4,108,"Cash");
-            Order order5 = new Order(5,110,"Debit");
+            Order order1 = new Order(1, 100, "Debit");
+            Order order2 = new Order(1, 104, "Cash");
+            Order order3 = new Order(3, 105, "Credit");
+            Order order4 = new Order(4, 108, "Cash");
+            Order order5 = new Order(5, 110, "Debit");
             orderList.Add(order1);
             orderList.Add(order2);
             orderList.Add(order3);
@@ -68,13 +69,13 @@ namespace AlleeAssignment2Linq
                                   book.bookName,
                                   order.paymentMode
                               }
-                              
+
                               );
 
 
             //executing bookorders query
             foreach (var theorder in bookOrders)
-                {
+            {
                 Console.WriteLine(theorder);
             }
 
@@ -95,6 +96,17 @@ namespace AlleeAssignment2Linq
 
 
             // linq question 2 with xml
+
+
+            var xmlBookList = (from book in bookList
+                               select new { book.bookID, book.bookName });
+
+            XElement myXelement = new XElement("book list",
+                foreach (var book in xmlBookList)
+                    {
+                        new XElement("BookID", book.bookID, new XAttribute("Book Name", book.bookName))
+                    } 
+                );
 
 
 
