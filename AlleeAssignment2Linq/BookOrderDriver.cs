@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlleeAssignment2Linq
 {
     class Book
     {
-        int bookID { get; set; }
-        String bookName { get; set; }
+        public int bookID { get; set; }
+        public String bookName { get; set; }
 
         public Book(int bbookID, String bbookName)
         {
@@ -16,9 +17,9 @@ namespace AlleeAssignment2Linq
     }
     class Order
     {
-        int bookID { get; set; }
-        int orderID { get; set; }
-        String paymentMode { get; set; }
+        public int bookID { get; set; }
+        public int orderID { get; set; }
+        public String paymentMode { get; set; }
 
         public Order(int obookID, int oorderID, String opaymentMode)
         {
@@ -32,8 +33,7 @@ namespace AlleeAssignment2Linq
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
+            // making 4 books and adding them to a book list
             List<Book> bookList = new List<Book>();
             Book book1 = new Book(1, "MoreEffective C#");
             Book book2 = new Book(2, "Head First Design Pattern");
@@ -44,6 +44,8 @@ namespace AlleeAssignment2Linq
             bookList.Add(book3);
             bookList.Add(book4);
 
+
+            // making 5 orders and adding them to order list
             List<Order> orderList = new List<Order>();
             Order order1 = new Order(1,100,"Debit");
             Order order2 = new Order(1,104,"Cash");
@@ -55,6 +57,60 @@ namespace AlleeAssignment2Linq
             orderList.Add(order3);
             orderList.Add(order4);
             orderList.Add(order5);
+
+
+            // start the first linq question here
+            var bookOrders = (from book in bookList
+                              join order in orderList on book.bookID equals order.bookID
+                              select new
+                              {
+                                  book.bookID,
+                                  book.bookName,
+                                  order.paymentMode
+                              }
+                              
+                              );
+
+
+            //executing bookorders query
+            foreach (var theorder in bookOrders)
+                {
+                Console.WriteLine(theorder);
+            }
+
+
+
+
+
+
+
+            // first attempt was this but it does not work cause book id is not a string
+            //var bookOrders = (from book in bookList
+            //                  select book.bookID
+            //                  ).Concat(from book in bookList
+            //                           select book.bookName
+            //                           ).Concat(from order in orderList
+            //                                    select order.paymentMode);
+
+
+
+            // linq question 2 with xml
+
+
+
+            // linq question 3 a cartesian product
+            List <char> dataSet1 =new List<char> { 'H', 'A', 'P', 'P', 'Y' };
+            List <int> dataSet2 = new List<int> { 1, 2, 3 };
+
+            var cartesianP = (from letter in dataSet1
+                              from number in dataSet2
+                              select new { letter, number });
+            // executing cartesionP query
+            foreach (var combo in cartesianP)
+            {
+                Console.WriteLine(combo);
+            }
+
         }
 
     }
