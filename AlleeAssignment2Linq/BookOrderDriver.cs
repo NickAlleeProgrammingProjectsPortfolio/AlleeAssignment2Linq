@@ -98,15 +98,23 @@ namespace AlleeAssignment2Linq
             // linq question 2 with xml
 
 
-            var xmlBookList = (from book in bookList
-                               select new { book.bookID, book.bookName });
+            //var xmlBookList = (from book in bookList
+            //                   select new { book.bookID, book.bookName });
 
-            XElement myXelement = new XElement("book list",
-                foreach (var book in xmlBookList)
-                    {
-                        new XElement("BookID", book.bookID, new XAttribute("Book Name", book.bookName))
-                    } 
-                );
+            //XElement myXelement = new XElement("book list",
+            //    foreach (var book in xmlBookList)
+            //        {
+            //            new XElement("BookID", book.bookID, new XAttribute("Book Name", book.bookName))
+            //        } 
+            //    );
+
+            //2nd 
+            foreach(Book bk in bookList)
+            {
+                XElement myXelement = new XElement("booklist", new XElement("bookID", bk.bookID),new XElement("bookName",bk.bookName));
+
+                Console.WriteLine(myXelement);
+            }
 
 
 
